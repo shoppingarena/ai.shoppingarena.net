@@ -1,0 +1,24 @@
+# File: .github/workflows/git-deploy.yml
+name: Git Deploy
+on:
+  push:
+    branches:
+      - master  # or your default branch name
+
+jobs:
+  git-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+        
+      - name: 🔑 Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+          
+      - name: 🚀 Deploy to Server
+        run: |
+          git remote add production ssh://${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_PORT }}/path/to/repository
+          git push production master
