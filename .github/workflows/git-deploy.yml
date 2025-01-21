@@ -20,5 +20,5 @@ jobs:
           
       - name: 🚀 Deploy to Server
         run: |
-          git remote add production ssh://${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_PORT }}/path/to/repository
+          git remote add production ssh://${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_PORT }}/github/ai.shoppingarena.net
           git push production master
